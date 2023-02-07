@@ -1,7 +1,7 @@
 // ----- IMPORTACIONES
 // Require importa el módulo que le pida
 require('dotenv').config();
-const { application } = require('express');
+const { app } = require('express');
 const express = require('express');
 const bp = require('body-parser')
 
@@ -25,4 +25,4 @@ app.use('/api', routes);
 
 // ----- INICIA SERVIDOR
 // Inicia Servidor en puerto de IP:3000
-app.listen(3000, () => console.log("Inicio de Servidor web"));
+app.listen(PORT, () => console.log("Inicio de Servidor web"));
