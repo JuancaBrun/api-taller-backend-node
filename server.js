@@ -2,6 +2,7 @@
 // Require importa el módulo que le pida
 require('dotenv').config();
 const { app } = require('express');
+// const app = express();
 const express = require('express');
 const bp = require('body-parser')
 
@@ -15,7 +16,6 @@ const PORT = process.env.PORT // || 5000;
 app.use(express.static('public')); // Archivos estáticos colgarán de /public/
 app.use(express.json()); // Soporte de JSON
 
-const app = express();
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
