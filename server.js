@@ -1,8 +1,8 @@
 // ----- IMPORTACIONES
 // Require importa el módulo que le pida
 require('dotenv').config();
-const { app } = require('express');
-// const app = express();
+// const { app } = require('express');
+const app = express();
 const express = require('express');
 const bp = require('body-parser')
 
