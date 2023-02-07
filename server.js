@@ -2,8 +2,8 @@
 // Require importa el módulo que le pida
 require('dotenv').config();
 // const { app } = require('express');
-const app = express();
 const express = require('express');
+const app = express();
 const bp = require('body-parser')
 
 // Se importa desde .env para no compartir credenciales
