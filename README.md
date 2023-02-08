@@ -1,21 +1,5 @@
-# api-taller-backend-node
-Api de un taller de vehículos con NodeJS, Express y MongoDB
-
 # BACKEND (con Node, Express y MongoDB)
-
-> **ESTE MINITUTORIAL ES UNA VERSIÓN RESUMIDA DEL BACKEND DE ESTA APLICACIÓN**
-> 
-> Demo desplegada en
-> - [Render](https://tiendabackend.onrender.com)
-> - [Railway](https://tiendabackend.up.railway.app/)
-> - [Cyclic](https://tiendabackend.cyclic.app/)
->
-> A tener en cuenta:
->
-> - Mucho del código que aparece en este minitutorial está simplificado con fines didácticos.
-> - Para ver todo el código, revisar el código fuente de este repositorio.
-> - **La parte frontend de esta aplicación puede verse en [tiendafrontend](https://github.com/jamj2000/tiendafrontend)**
-
+Api sobre la temática de un taller de vehículos
 
 ## Introducción
 
@@ -45,8 +29,8 @@ O, si deseamos una versión más actualizada, podemos recurrir al sitio oficial 
 Para iniciar el proyecto hacemos:
 
 ```
-mkdir  tiendabackend
-cd     tiendabackend
+mkdir  taller-mecanico
+cd     taller-mecanico
 
 npm  init  -y
 ```
@@ -64,29 +48,6 @@ Para definir dicho punto de entrada, lo hacemos con la línea:
 
 ```
   "main": "server.js",
-```
-
-El archivo `package.json` tendrá una apariencia semejante a la siguiente:
-
-```
-{
-  "name": "tiendabackend",
-  "version": "1.0.0",
-  "description": "Backend of a Fullstack webapp",
-  "author": "jamj2000 at google dot com",
-  "license": "GPL",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
-  },
-  "keywords": [
-    "webapp",
-    "backend",
-    "fullstack"
-  ]
-}
 ```
 
 También hemos modificado una de las líneas de `scripts`. En concreto:
@@ -148,39 +109,7 @@ npm  install  express
 npm  install  nodemon  -D
 ```
 
-Si echamos un vistazo al archivo **`package.json`** veremos que dichos paquetes (también llamados módulos) han quedado registrados en dicho archivo:
-
-
-```
-{
-  "name": "tiendabackend",
-  "version": "1.0.0",
-  "description": "Backend of a Fullstack webapp",
-  "author": "jamj2000 at google dot com",
-  "license": "GPL",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",    
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
-  },
-  "keywords": [
-    "webapp",
-    "backend",
-    "fullstack"
-  ],
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
-  }
-}
-```
-
-También veremos que se ha creado una carpeta `node_modules` con dichos módulos en su interior, además de muchos otros que son dependencias de los anteriores.
-
-Por último, también se ha creado un archivo `package-lock.json` que contiene la versión exacta de cada dependencia. Este archivo es muy importante, puesto que indicará al servidor de producción que utilice exactamente la mismas versiones de las dependencias que usamos en nuestro entorno de desarrollo, evitando así problemas en el despligue. 
+Dichos módulos se guardan en la carpeta `node_modules` (entre muchos otros). El archivo `package-lock.json`  contiene la versión exacta de cada dependencia. Este archivo es muy importante, puesto que indicará al servidor de producción que utilice exactamente la mismas versiones de las dependencias que usamos en nuestro entorno de desarrollo, evitando así problemas en el despligue. 
 
 Ahora, ya podremos ejecutar `npm run dev`, y si no hay errores, podremos abrir el navegador y acceder a la url `http://localhost:3000`.
 
@@ -206,17 +135,15 @@ app.use(express.static(path.join(__dirname , 'public')));
 
 En [`public/index.html`](public/index.html) pondremos una página con información acerca de la API. 
 
-![Info de la API](snapshots/backend.png)
+![Info de la API](https://user-images.githubusercontent.com/79328934/217622961-34bacda5-0711-4049-a84d-640405ad610b.png)
 
 
 ### Haciendo pública nuestra API
 
-**IMPORTANTE:** Debemos instalar el módulo `cors`
+**IMPORTANTE:** Debemos instalar el módulo `cors` que proporciona funcionalidad de [Cross-Origin Resource Sharing]
 ```
 npm  install  cors
 ```
-
-Este módulo proporciona funcionalidad de [Cross-Origin Resource Sharing](https://es.wikipedia.org/wiki/Intercambio_de_recursos_de_origen_cruzado)
 
 El código a añadir es:
 
@@ -226,14 +153,15 @@ const cors = require('cors');
 app.use(cors()); 
 ```
 
-### Obteniendo información de configuración desde las variables de entorno
+### Obteniendo información de configuración desde las variables de entorno 
 
-**IMPORTANTE:** Debemos instalar el módulo `dotenv`:
+**IMPORTANTE:** Debemos instalar el módulo `dotenv` para guardar la información de conexión a la base de datos mediante  **variables de entorno**
+
 ```
 npm  install  dotenv
 ```
 
-Utilizaremos **variables de entorno** para guardar la información de conexión a la base de datos.
+Utilizaremos .
 
 Para ello usaremos un archivo `.env` y el módulo `dotenv` para leer dicho archivo.
 
@@ -253,9 +181,9 @@ const PORT   = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI;
 ```
 
-Si la variable `PORT` no está definida en el archivo `.env`, entonces se utiliza el valor 3000. En nuestro caso, es mejor no definir dicha variable.
+Si la variable `PORT` no está definida en el archivo `.env`, entonces se utiliza el valor 3000. Para localhost podemos no definir dicha variable.
 
-La variable `DB_URI` debe estar definida en el archivo `.env` sino la conexión a la base de datos fallará. Dicha variable contiene la URL de la base de datos. Consulta más abajo, en el apartado [Base de datos](https://github.com/jamj2000/tiendabackend#base-de-datos).
+La variable `DB_URI` debe estar definida en el archivo `.env` sino la conexión a la base de datos fallará ya que contiene la URL de la base de datos.
 
 
 ### Conectando a una base de datos
@@ -300,38 +228,9 @@ Este backend proporpociona una **API Rest** con los siguientes **end-points**:
 (PUT)    /api/clientes/:id     (Modifica cliente :id)
 (DELETE) /api/clientes/:id     (Elimina  cliente :id)
 
-(GET)    /api/articulos        (Lista    todos los artículos)
-(POST)   /api/articulos        (Crea     artículo)
-(GET)    /api/articulos/:id    (Lista    artículo :id)
-(PUT)    /api/articulos/:id    (Modifica artículo :id)
-(DELETE) /api/articulos/:id    (Elimina  artículo :id)
 ```
 
-El código fuente usado es:
-
-```javascript
-const cors = require('cors')
-const express = require("express");
-const controller = require("./controllers.js");
-
-const router = express.Router();
-
-// --------------- API REST CRUD
-
-router.get    ("/clientes",      cors(), controller.readClientes);   // Read All
-router.get    ("/clientes/:id",  cors(), controller.readCliente);    // Read
-router.delete ("/clientes/:id",  cors(), controller.deleteCliente);  // Delete
-router.put    ("/clientes/:id",  cors(), controller.updateCliente);  // Update
-router.post   ("/clientes",      cors(), controller.createCliente);  // Create
-
-// ...
-
-module.exports = router;
-```
 En este caso hemos habilitado mediante `cors` el acceso a cada **end-point** de nuestra **API** desde cualquier URL. 
-
-Todo el código fuente de las rutas está disponible en el archivo **[`routes.js`](routes.js)**.
-
 
 ## Controladores
 
@@ -353,36 +252,13 @@ Todo el código fuente de los controladores está disponible en el archivo **[`c
 
 ## Modelos
 
-Tenemos 2 modelos:
+Tenemos 3 modelos:
 
-- Cliente 
-- Artículo
+- Cliente
+- Vehículo 
+- Pieza
 
-Cada uno tiene un esquema asociado que, en este caso, es bastante simple. Cada modelo tiene únicamente 2 propiedades:
-
-```javascript
-const Cliente = mongoose.model('Cliente',
-  new mongoose.Schema({ nombre: String, apellidos: String })
-);
-
-const Articulo = mongoose.model('Articulo',
-  new mongoose.Schema({ nombre: String, precio: Number })
-);
-```
-
-Todo el código fuente de los modelos está disponible en el archivo **[`models.js`](models.js)**.
-
-Mongoose proporciona muchos más tipos y opciones para definición de esquemas. Puedes consultar en [Tipos de esquemas en Mongoose](https://mongoosejs.com/docs/schematypes.html)
-
-
-## ¿Vistas?
-
-NO HAY. 
-
-Esto NO es una aplicación MVC (Modelo-Vista-Controlador).  
-
-Este **backend** proporciona una **API Rest**, por tanto no genera vistas, sino que ofrece la información en formato **JSON** para que la aplicación frontend la renderice a su gusto.
-
+Cada uno tiene un esquema asociado con sus propiedades.
 
 ## Base de datos
 
@@ -433,36 +309,6 @@ node_modules/
 
 De esta forma indicamos que la carpeta `node_modules` y el archivo `.env` no serán incluidos en el repositorio, sólo permanecerán en el directorio de trabajo. 
 
-`node_modules` contiene las dependencias y no es aconsejable añadirlo al repositorio. Su contenido será *re-**creado*** a partir  del archivo `package-lock.json` una vez se despliegue en producción.
-
-`.env` es el archivo que guarda las **variables de entorno**. Dicho contenido nunca debe añadirse al repositorio, puesto que puede contener información sensible, tal como URLs, usuarios, contraseñas, ... 
-
-
-3. Añade todo el contenido al repositorio:
-
-```
-git  add  .
-git  commit  -m "Añadido contenido"
-```
-
-4. Crea un repositorio totalmente vacío en GitHub.
-
-Una vez hecho, copia la URL de dicho repositorio.
-
-5. Añade el vínculo al repositorio remoto de GitHub creado previamente.
-
-`git  remote  add  origin  https://github.com/` *usuario* `/` *repositorio.git*
-
-Sustituye *usuario* y *repositorio.git* por tu usuario y tu repositorio. 
-
-
-6. Sube el contenido al repositorio remoto de Github.
-
-```
-git  push  -u  origin master
-```
-
-
 ## Despliegue
 
 
@@ -473,19 +319,15 @@ Para el despligue usaremos **[Heroku](https://www.heroku.com/)**.
 
 Seguiremos los siguientes pasos:
 
-1. Si no tienes cuenta en Heroku, crea una.
-
-Para ello, visita **[Heroku](https://www.heroku.com/)** y date de alta en el plan *Free*.
-
-2. Instala la herramienta `heroku-cli`. En [este enlace](https://devcenter.heroku.com/articles/heroku-cli) tienes la información necesaria.
-
-3. Inicia sesión en el terminal.
+1. Inicia sesión en el terminal.
 
 ```
 heroku  login  --interactive
 ```
 
-4. Crea una nueva aplicación.
+Si no usas **--interactive** te mandará al login desde el navegador (más sencillo)
+
+2. Crea una nueva aplicación.
 
 `heroku  apps:create` *nombre_aplicación*  
 
@@ -495,13 +337,13 @@ Esta operación, además de crear la aplicación, reserva un repositorio git par
 >
 > Ten en cuenta que muchos nombres de aplicación pueden estar ya cogidos, sobre todo si son nombres sencillos o habituales.
 
-5. Añade el vínculo al repositorio remoto de Heroku creado previamente.
+3. Añade el vínculo al repositorio remoto de Heroku creado previamente.
 
 `git  remote  add  heroku  https://git.heroku.com/` *nombre_aplicación.git*
 
 > Nota: Sustituye *nombre_aplicación* por el nombre de tu aplicación. 
 
-6. Despliega el contenido en Heroku.
+4. Despliega el contenido en Heroku.
 
 ```
 git  push  heroku  master
@@ -521,23 +363,21 @@ En concreto, en esta aplicación debemos configurar la variable DB_URI con la UR
 
 **Desde la interfaz web**
 
-![heroku env](snapshots/heroku-env.png)
+![image](https://user-images.githubusercontent.com/79328934/217625834-c880060e-1311-4c02-a6f3-ddc5e5fd385e.png)
 
 **Desde CLI**
 
 ```bash
 heroku login -i
-heroku config:set DB_URI=mongodb+srv://...  -a tiendabackend
+heroku config:set DB_URI=mongodb+srv://...  -a taller-mecanico
 ```
 
 Para ver las variables configuradas, ejecutamos:
 
 ```bash
-heroku config -a tiendabackend
+heroku config -a taller-mecanico
 ```
 
 > NOTA: Si deseamos eliminar una variable, lo hacemos con
 >
-> `heroku config:unset NOMBRE_VARIABLE -a tiendabackend`
-
-> NOTA: Sustituye *tiendabackend* por el nombre de tu aplicación.
+> `heroku config:unset NOMBRE_VARIABLE -a taller-mecanico`
