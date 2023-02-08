@@ -385,8 +385,8 @@ heroku config -a taller-mecanico
 
 ### Errores probables que ya he tenido
 
-> Si tras desplegar en Heroku no aparece ningún error pero la aplicación no aparece en su url, **comprobar que el repositorio de Git Hub es público**.
-> Hay que **respetar el orden de invocación de cors, json y routes** en el código (si no podría invocar una variable que aún no se ha inicializado.
-> Para **ver errores a detalle** consultar los logs del servidor Heroku (se puede desde CLI y desde la web de Heroku)
+> - Si tras desplegar en Heroku no aparece ningún error pero la aplicación no aparece en su url, **comprobar que el repositorio de Git Hub es público**.
+> - Hay que **respetar el orden de invocación de cors, json y routes** en el código (si no podría invocar una variable que aún no se ha inicializado.
+> - Para **ver errores a detalle** consultar los logs del servidor Heroku (se puede desde CLI y desde la web de Heroku)
 
 Créditos: Este manual se basa en el de https://github.com/jamj2000
