@@ -8,7 +8,7 @@ const bp = require('body-parser')
 
 // Se importa desde .env para no compartir credenciales
 // (y si no existe, para este caso se tomará los datos directamente, que es inseguro)
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 // ----- MIDDLEWARE
 // Todo lo que va dentro de use sería un middleware
