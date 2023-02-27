@@ -3,6 +3,14 @@
 const express = require('express');
 const controller = require("./controllers.js");
 const cors = require('cors');
+const app = require('./server');
+const corsOptions = {
+    origin: '*',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions))
 
 const router = express.Router();
 
